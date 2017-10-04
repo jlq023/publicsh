@@ -18,8 +18,15 @@ import demo.bean.Manageruser;
 @RequestMapping("/user")
 public class UserController {
 
+	/**
+	 * @param name
+	 * @param passWord
+	 * @param paramsStatus 在该参数之前的为必传项，反之可以不是必传
+	 * @param age
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping("save")
+	@RequestMapping("save") 
 	public String save(String name, String passWord,String paramsStatus, int age) {
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("code", 0);

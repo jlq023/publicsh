@@ -1,0 +1,66 @@
+2017-10-04 23:48:42,532 public void query(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("sid", sid);params.put("status", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/lijia//user/query.json",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-04 23:48:42,532 public void save(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("sid", sid);params.put("name", index);
+index++;
+params.put("passWord", index);
+index++;
+params.put("paramsStatus", index);
+index++;
+params.put("age", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/lijia//user/save.json",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-04 23:49:26,103 public void query(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("sid", sid);params.put("status", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/publicsh//user/query.json",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-04 23:49:26,119 public void save(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("sid", sid);params.put("name", index);
+index++;
+params.put("passWord", index);
+index++;
+params.put("paramsStatus", index);
+index++;
+params.put("age", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/publicsh//user/save.json",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-05 00:15:57,685 public void query(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("status", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/publicsh//user/query.htm",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-05 00:15:57,685 public void save(){
+Map<String, Object> params = new HashMap<String, Object>();
+NetworkBean networkBean = new NetworkBean();	
+int index=1;params.put("name", index);
+index++;
+params.put("passWord", index);
+index++;
+params.put("paramsStatus", index);
+index++;
+params.put("age", index);
+index++;
+HttpClientManager.getInstance().sendRequest("http://127.0.0.1:8080/publicsh//user/save.htm",params, networkBean);
+System.out.println(networkBean.getCode()+","+networkBean.getResult()); } 
+2017-10-05 00:17:15,278 HttpClientManager finally null,{passWord=2, name=1, paramsStatus=3, age=4}
+{"passWord":"2","code":0,"name":"1"}
+null 
+2017-10-05 00:17:31,594 HttpClientManager finally null,{status=1}
+{"code":0,"data":[{"mid":100,"mloginId":"testLoginId0","mstatus":1},{"mid":100,"mloginId":"testLoginId1","mstatus":1},{"mid":100,"mloginId":"testLoginId2","mstatus":1},{"mid":100,"mloginId":"testLoginId3","mstatus":1},{"mid":100,"mloginId":"testLoginId4","mstatus":1}]}
+null 

@@ -29,11 +29,7 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Table;
 import com.lowagie.text.rtf.RtfWriter2;
-
-/**
- * @author Administrator
- *
- */
+ 
 public class InterfaceUtil {
 
 	 
@@ -133,7 +129,14 @@ public class InterfaceUtil {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * 得到接口的参数
+	 * @param service 
+	 * @param className  controller类的全路径，如：com.controller.UserController
+	 * @param params 存放参数的map,只需要初始化即可
+	 * @param methodMap controller的方法名称，通过这个map来生成接口文档。如：save,query等，具体参见测试方法
+	 */
 	public void getServiceParams(String service, String className,
 			Map<String, Map<String, Object>> params,
 			Map<String, String> methodMap) {
@@ -155,6 +158,7 @@ public class InterfaceUtil {
 				paramsType = new ArrayList();
 				Class[] cParams = m.getParameterTypes();
 				for (Class cType : cParams) {
+					//此处的包是，我们系统封装后的包名，你可以注释这些代码
 					if (cType.getName().equals("im.core.mvc.controller.IModel")
 							|| cType.getName().equals("im.core.dao.Dao")|| cType.getName().equals("lj.sys.UserToken")) {
 						continue;
@@ -197,12 +201,51 @@ public class InterfaceUtil {
 				}
 				params.put(methodName, methodParams);
 				methodParams = new LinkedHashMap<String, Object>();
-			}  
+			}
+			Iterator iterator = serviceTestMap.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Map.Entry entry = (Entry) iterator.next();
+				createRequest(service, entry.getValue().toString(), entry
+						.getKey().toString(), 0);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	private static final String URL = "http://127.0.0.1:8080/lijia/";
+	
+	/**
+	 * 创建测试方法
+	 * @param service
+	 * @param msg 参数key
+	 * @param method 方法名称
+	 * @param type  
+	 * @return
+	 */
+	public StringBuffer createRequest(String service, String msg,
+			String method, int type) {
+		StringBuffer sb = new StringBuffer("public void " + method + "(){")
+				.append("\r\n");
+		sb.append("Map<String, Object> params = new HashMap<String, Object>();");
+		sb.append("\r\n");
+		sb.append("NetworkBean networkBean = new NetworkBean();	");
+		sb.append("\r\n");
+		sb.append("int index=1;"); 
+		String msgArr[] = msg.split(",");
+		for (String m : msgArr) {
+			sb.append("params.put(\"" + m + "\", index);");
+			sb.append("\r\n");
+			sb.append("index++;");
+			sb.append("\r\n");
+		} 
+			sb.append(
+					"HttpClientManager.getInstance().sendRequest(\"" + URL
+							+ service + "/" + method
+							+ ".htm\",params, networkBean);").append("\r\n"); 
+		sb.append("System.out.println(networkBean.getCode()+\",\"+networkBean.getResult()); ");
+		sb.append("}");
+		log.info(sb.toString());
+		return sb;
+	}
+	private static final String URL = "http://127.0.0.1:8080/publicsh/";
 	private static final Logger log = Logger.getLogger(InterfaceUtil.class);
 }
